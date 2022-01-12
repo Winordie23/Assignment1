@@ -1,0 +1,26 @@
+database username = "yeab"
+database password ="1234"
+
+
+db query:
+CREATE TABLE  "DEPT_TB" 
+   (	"SID" VARCHAR2(2), 
+	"ID" VARCHAR2(30), 
+	"FNAME" VARCHAR2(30), 
+	"LNAME" VARCHAR2(30), 
+	"DEPT" VARCHAR2(12), 
+	"SECTION" VARCHAR2(12), 
+	 CONSTRAINT "DEPT_TB_PK" PRIMARY KEY ("ID") ENABLE
+   ) ;
+
+CREATE OR REPLACE TRIGGER  "BI_DEPT_TB" 
+  before insert on "DEPT_TB"               
+  for each row  
+begin   
+  if :NEW."ID" is null then 
+    select "DEPT_TB_SEQ".nextval into :NEW."ID" from dual; 
+  end if; 
+end; 
+
+/
+ALTER TRIGGER  "BI_DEPT_TB" ENABLE;
